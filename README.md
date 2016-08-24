@@ -1,6 +1,6 @@
 # ActiveRecordDistinctOn
 
-[![Build Status](https://travis-ci.org/anarchocurious/hipaapotamus.svg)](https://travis-ci.org/anarchocurious/active_record_distinct_on)
+[![Build Status](https://travis-ci.org/anarchocurious/active_record_distinct_on.svg?branch=master)](https://travis-ci.org/anarchocurious/active_record_distinct_on)
 
 ActiveRecordDistinctOn adds support for `DISTINCT ON` queries in ActiveRecord. At the time of this writing, PostgreSQL is the only database which supports this syntax; however, this gem has been written with database independence in mind so that if [another Arel visitor](https://github.com/rails/arel/tree/master/lib/arel/visitors) adds support for [`Arel::Nodes::DistinctOn`](https://github.com/rails/arel/blob/master/lib/arel/nodes/unary.rb) in the future, this gem should work seamlessly.
 
@@ -33,7 +33,7 @@ Dog.distinct_on(:name, :owner_id)
 Generates SQL like:
 
 ```sql
-SELECT DISTINCT ON ( "dogs"."names" "dogs.owner_id" ) "dogs".* FROM "dogs"
+SELECT DISTINCT ON ( "dogs"."name", "dogs.owner_id" ) "dogs".* FROM "dogs"
 ```
 
 **Note:** For applications using ActiveRecord à la carte (without the `rails` gem), none of the methods above will be defined until `ActiveRecordDistinctOn.install` is manually called.
