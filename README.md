@@ -33,7 +33,7 @@ Dog.distinct_on(:name, :owner_id)
 Generates SQL like:
 
 ```sql
-SELECT DISTINCT ON ( "dogs"."names" "dogs.owner_id" ) "dogs".* FROM "dogs"
+SELECT DISTINCT ON ( "dogs"."name", "dogs.owner_id" ) "dogs".* FROM "dogs"
 ```
 
 **Note:** For applications using ActiveRecord à la carte (without the `rails` gem), none of the methods above will be defined until `ActiveRecordDistinctOn.install` is manually called.
