@@ -4,6 +4,8 @@ module ActiveRecordDistinctOn
   module DistinctOnQueryMethods
     extend ActiveSupport::Concern
 
+    FROZEN_EMPTY_ARRAY = [].freeze
+
     included do
       self::MULTI_VALUE_METHODS << :distinct_on
       self::INVALID_METHODS_FOR_DELETE_ALL << :distinct_on
@@ -11,7 +13,7 @@ module ActiveRecordDistinctOn
     end
 
     def distinct_on_values
-      @values[:distinct_on] || self.class::FROZEN_EMPTY_ARRAY
+      @values[:distinct_on] || FROZEN_EMPTY_ARRAY
     end
 
     def distinct_on_values=(values)
