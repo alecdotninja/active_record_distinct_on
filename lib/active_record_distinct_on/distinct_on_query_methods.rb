@@ -17,7 +17,6 @@ module ActiveRecordDistinctOn
     end
 
     def distinct_on_values=(values)
-      assert_mutability!
       @values[:distinct_on] = values
     end
 
