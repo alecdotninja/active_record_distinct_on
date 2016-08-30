@@ -1,6 +1,6 @@
 # ActiveRecordDistinctOn
 
-[![Build Status](https://travis-ci.org/anarchocurious/active_record_distinct_on.svg?branch=master)](https://travis-ci.org/anarchocurious/active_record_distinct_on) [![Security](https://hakiri.io/github/anarchocurious/active_record_distinct_on/master.svg)](https://hakiri.io/github/anarchocurious/active_record_distinct_on/master)
+[![Build Status](https://travis-ci.org/anarchocurious/active_record_distinct_on.svg?branch=master)](https://travis-ci.org/anarchocurious/active_record_distinct_on) [![Code Climate](https://codeclimate.com/github/anarchocurious/active_record_distinct_on/badges/gpa.svg)](https://codeclimate.com/github/anarchocurious/active_record_distinct_on)  [![Security](https://hakiri.io/github/anarchocurious/active_record_distinct_on/master.svg)](https://hakiri.io/github/anarchocurious/active_record_distinct_on/master)
 
 ActiveRecordDistinctOn adds support for `DISTINCT ON` queries in ActiveRecord. At the time of this writing, PostgreSQL is the only database which supports this syntax; however, this gem has been written with database independence in mind so that if [another Arel visitor](https://github.com/rails/arel/tree/master/lib/arel/visitors) adds support for [`Arel::Nodes::DistinctOn`](https://github.com/rails/arel/blob/master/lib/arel/nodes/unary.rb) in the future, this gem should work seamlessly.
 
