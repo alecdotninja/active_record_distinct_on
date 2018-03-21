@@ -1,13 +1,8 @@
 require 'spec_helper'
 
 describe ActiveRecordDistinctOn::DistinctOnQueryMethods do
-  let(:dummy_model) do
-    Class.new(ActiveRecord::Base) do
-      def self.has_attribute?(*)
-        true
-      end
-    end
-  end
+  let(:dummy_model) { Dog }
+  let(:dummy_model_attribute_names) { Dog.column_names }
 
   subject { dummy_model.all }
 
@@ -19,7 +14,7 @@ describe ActiveRecordDistinctOn::DistinctOnQueryMethods do
     end
 
     context 'with arguments' do
-      let(:attribute_names) { [:a, :b, :c] }
+      let(:attribute_names) { dummy_model_attribute_names.sample(3) }
       let(:arel) { subject.distinct_on(*attribute_names).arel }
       let(:select_statement) { arel.ast }
       let(:set_quantifies) { select_statement.cores.map(&:set_quantifier) }
