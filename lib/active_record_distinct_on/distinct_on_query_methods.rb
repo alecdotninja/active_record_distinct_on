@@ -10,6 +10,7 @@ module ActiveRecordDistinctOn
       self::MULTI_VALUE_METHODS << :distinct_on
       self::INVALID_METHODS_FOR_DELETE_ALL << :distinct_on
       self::VALUE_METHODS << :distinct_on
+      self::DEFAULT_VALUES[:distinct_on] = FROZEN_EMPTY_ARRAY if defined?(self::DEFAULT_VALUES)
     end
 
     def distinct_on_values

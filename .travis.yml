@@ -1,8 +1,25 @@
 language: ruby
+sudo: false
+cache: bundler
+
 env:
   global:
-    - secure: "eXNc/NbLIdZCBBfX39nZLanEoLpZcWdP61OmrMepP7HFARIaGQ5Mciu7c02GLIIwJsiut2ysD60DpbaK4DH5qbZy+hiMHaTog7jebN/8ou+5a8xMhB1IGOLIogC8RjYXBwSVEbQ3j+kkHRdlDMKA/qQkjnJyTnAKZ6H+48UVvIDufUJPycH+LpPYv4rBQrhbB2+rATBGJl10KMJxduF25rxUGLFOKlrax83irRKrwNG7roaS4GsDSrEjaBjzoL/9hH0jQFj5IcjVhNtpLNyrVolRbHC7PKDu4ksJi9wYMIwLWiRrqAkVPdCIy3mXaH+WiIkfYVy04CfrdegFEv+uB36IF4Fj5+QK/zhADzGpvGHq1J0IAlg5NGZHnlA14b7jA1V8COn95uV0T4Jo4YRqPbCKpAAeGM8StDbA4gCSok/UKkOFBBpvLjbik/31PXDZFRL2qkarMj45btERwXNfZ6X1n4cQ4QbbDo7DIEoAOjgaRwEkHvrRs/XIbcgao66phXUTGnVCnt0Hy0R5WFSk5bALJjaLb/ovBZVb39u/E8dURtIhDhfFfrfncNvq44DImJy8MMRt7jHk3PhSLbtMmfKB517r+PtXSts4e+wFXbQHleEItyTZa2jrDtBPtk6QlQUdiZEFLZHS1O42fMgmR04bNWsBw1xR5VKmxXnkeDU="
+    secure: ltadNZAv+TyVQf7y4EqbAq38A0zGoRTx0lM+NN39GOKoV8VTbs2rWL2zVeFnM+8FvjIyGlFh3EyRxqufwTaOd462PgDJldpKNuRFM0rAPmProfQ0RKYVkE6T7s8OHT1wu7U4ZKHOmJPrFtnVwztEjc7A2l1Z5kbp/lwr6m9/h4QOWErgR4i2dVzgodnUVJYuJwpcs/3fCq8mLXOZRs6nh4Wo9K8eRjxvZ7CuOxECtQD/7wL9Feo3/c1b8GS2dKYEPLsM0zQGYqJC+BwElzzGfIBBsqQ4eD8eVcrJoOpbb0MKJLLjr6nMeMQTE0Tfo8/L12TL6RcLSUJN+s1XtN49RRss2rcDMRGS2L7cjlNTZLK7C+FaWUCWI/dkN6ztvaM7QVlVPH8YUgSHEez7qG/h3E7koNh610VrRlbWmP6s4seFfJGzBs6F/9LLgfa+t0QU5H3ZIjLVdqetqfkh7FJR3T5CLFLoZ3zdF9/YHVI+ECfBpMHLCgJLejqSDu8NldJGuP22RQpFSQr9DdffGe3eonHgdUbMzzGAJxw085MHssvtNMzb3hpYM3f5TGrg8E/NIh7gEniKOK+DfbyhuY1W0uQwXUWMKx56RlJ8MIDM/zLOMFYM1s9Ngrq9ZG2PNqNUgD/7u5gcaoF8qDGfadzp1r+DOz9HdPn7N93BTTCQrDg=
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
 rvm:
-  - 2.3.0
-before_install:
-  - gem install bundler -v 1.10.6
+  - 2.2
+  - 2.3
+  - 2.4
+  - 2.5
+
+gemfile:
+  - gemfiles/4.2.gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
