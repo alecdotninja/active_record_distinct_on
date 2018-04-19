@@ -35,7 +35,7 @@ module ActiveRecordDistinctOn
 
     private
 
-    def build_arel
+    def build_arel(*)
       super.tap do |arel|
         build_distinct_on(arel, distinct_on_values)
       end
