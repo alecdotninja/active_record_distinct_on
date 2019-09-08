@@ -27,3 +27,7 @@ gemfile:
   - gemfiles/5.2.gemfile
   - gemfiles/6.0.gemfile
 
+matrix:
+  exclude:
+    - rvm: 2.4
+      gemfile: gemfiles/6.0.gemfile
