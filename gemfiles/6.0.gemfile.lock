@@ -58,7 +58,7 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    zeitwerk (2.1.9)
+    zeitwerk (2.1.10)
 
 PLATFORMS
   ruby
@@ -67,7 +67,7 @@ DEPENDENCIES
   active_record_distinct_on!
   activerecord (~> 6.0)
   appraisal
-  bundler (~> 2.0)
+  bundler (~> 1.17)
   pry
   rake (~> 10.0)
   rspec
@@ -75,4 +75,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.0.2
+   1.17.3
