@@ -6,24 +6,24 @@ env:
   global:
     secure: ltadNZAv+TyVQf7y4EqbAq38A0zGoRTx0lM+NN39GOKoV8VTbs2rWL2zVeFnM+8FvjIyGlFh3EyRxqufwTaOd462PgDJldpKNuRFM0rAPmProfQ0RKYVkE6T7s8OHT1wu7U4ZKHOmJPrFtnVwztEjc7A2l1Z5kbp/lwr6m9/h4QOWErgR4i2dVzgodnUVJYuJwpcs/3fCq8mLXOZRs6nh4Wo9K8eRjxvZ7CuOxECtQD/7wL9Feo3/c1b8GS2dKYEPLsM0zQGYqJC+BwElzzGfIBBsqQ4eD8eVcrJoOpbb0MKJLLjr6nMeMQTE0Tfo8/L12TL6RcLSUJN+s1XtN49RRss2rcDMRGS2L7cjlNTZLK7C+FaWUCWI/dkN6ztvaM7QVlVPH8YUgSHEez7qG/h3E7koNh610VrRlbWmP6s4seFfJGzBs6F/9LLgfa+t0QU5H3ZIjLVdqetqfkh7FJR3T5CLFLoZ3zdF9/YHVI+ECfBpMHLCgJLejqSDu8NldJGuP22RQpFSQr9DdffGe3eonHgdUbMzzGAJxw085MHssvtNMzb3hpYM3f5TGrg8E/NIh7gEniKOK+DfbyhuY1W0uQwXUWMKx56RlJ8MIDM/zLOMFYM1s9Ngrq9ZG2PNqNUgD/7u5gcaoF8qDGfadzp1r+DOz9HdPn7N93BTTCQrDg=
 
-before_script:
-  - gem update --system
-  - gem install bundler
+before_install:
+  - gem update --system --no-doc
+  - gem install bundler --no-doc
+
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+ 
+before_script:
+ - ./cc-test-reporter before-build
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 rvm:
-  - 2.4
   - 2.5
   - 2.6
+  - 2.7
 
 gemfile:
-  - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
-  - gemfiles/5.1.gemfile
   - gemfiles/5.2.gemfile
   - gemfiles/6.0.gemfile
 
