@@ -1,3 +1,3 @@
 module ActiveRecordDistinctOn
-  VERSION = '0.1.7'
+  VERSION = '1.0.0'
 end
