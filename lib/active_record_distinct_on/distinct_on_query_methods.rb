@@ -30,9 +30,9 @@ module ActiveRecordDistinctOn
       fields.flatten!
       fields.map! { |field|
         if klass.attribute_alias?(field)
-          arel_attribute(klass.attribute_alias(field).to_sym)
+          arel_table[klass.attribute_alias(field).to_sym]
         else
-          arel_attribute(field)
+          arel_table[field]
         end
       }
       self.distinct_on_values += fields
