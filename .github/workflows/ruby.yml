@@ -32,15 +32,6 @@ jobs:
           gem install bundler --no-doc
           bundle config set path "vendor/bundle"
 
-      - name: Restore Gem Cache
-        id: gem-cache
-        uses: actions/cache@v1
-        with:
-          path: gemfiles/vendor/bundle
-          key: gem-cache:${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.rails }}
-          restore-keys: |
-            gem-cache:${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.rails }}
-
       - name: Install Gems for Rails ${{ matrix.rails }}
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
