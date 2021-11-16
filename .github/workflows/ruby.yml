@@ -13,11 +13,14 @@ jobs:
         ruby:
           - '2.6.8'
           - '2.7.4'
-          - '3.0.2'
         rails:
           - '5.2'
           - '6.0'
           - '6.1'
+        include:
+          # TODO: Move back into matrix when support for Rails 5.2 officially ends
+          - { ruby: '3.0.2', rails: '6.0' }
+          - { ruby: '3.0.2', rails: '6.1' }
 
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +45,7 @@ jobs:
         id: gem-cache
         uses: actions/cache@v1
         with:
-          path: vendor/bundle
+          path: gemfiles/vendor/bundle
           key: gem-cache:${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.rails }}
           restore-keys: |
             gem-cache:${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.rails }}
