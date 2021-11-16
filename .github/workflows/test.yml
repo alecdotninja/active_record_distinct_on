@@ -1,0 +1,57 @@
+name: Test
+on: 'push'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - '2.6.8'
+          - '2.7.4'
+        rails:
+          - '5.2'
+          - '6.0'
+          - '6.1'
+        include:
+          # TODO: Move back into matrix when support for Rails 5.2 officially ends
+          - { ruby: '3.0.2', rails: '6.0' }
+          - { ruby: '3.0.2', rails: '6.1' }
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Setup Bundler
+        run: |
+          gem update --system --no-doc
+          gem install bundler --no-doc
+          bundle config set path "vendor/bundle"
+
+      - name: Install Gems for Rails ${{ matrix.rails }}
+        env:
+          BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
+        run: |
+          bundle check || bundle install --jobs 4 --retry 3
+
+      - name: Prepare Code Climate Test Reporter
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: before-build
+
+      - name: Run Test Suite
+        env:
+          BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
+        run: |
+          bundle exec rake
+
+      - name: Upload Coverage Report
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: after-build
