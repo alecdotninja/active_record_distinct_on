@@ -1,5 +1,5 @@
 name: Test
-on: 'push'
+on: [push, pull_request]
 
 jobs:
   build:
@@ -40,6 +40,7 @@ jobs:
 
       - name: Prepare Code Climate Test Reporter
         uses: aktions/codeclimate-test-reporter@v1
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         with:
           codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
           command: before-build
@@ -52,6 +53,7 @@ jobs:
 
       - name: Upload Coverage Report
         uses: aktions/codeclimate-test-reporter@v1
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         with:
           codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
           command: after-build
