@@ -1,7 +1,7 @@
 # ActiveRecordDistinctOn
 
 [![Gem Version](https://badge.fury.io/rb/active_record_distinct_on.svg)](https://badge.fury.io/rb/active_record_distinct_on)
-[![Build Status](https://travis-ci.org/alecdotninja/active_record_distinct_on.svg?branch=master)](https://travis-ci.org/alecdotninja/active_record_distinct_on)
+![Build Status](https://github.com/alecdotninja/active_record_distinct_on/actions/workflows/test.yml/badge.svg)
 [![Code Climate](https://codeclimate.com/github/alecdotninja/active_record_distinct_on/badges/gpa.svg)](https://codeclimate.com/github/alecdotninja/active_record_distinct_on)
 [![Test Coverage](https://codeclimate.com/github/alecdotninja/active_record_distinct_on/badges/coverage.svg)](https://codeclimate.com/github/alecdotninja/active_record_distinct_on/coverage)
 [![Security](https://hakiri.io/github/alecdotninja/active_record_distinct_on/master.svg)](https://hakiri.io/github/alecdotninja/active_record_distinct_on/master)
