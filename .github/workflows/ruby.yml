@@ -35,12 +35,6 @@ jobs:
           gem install bundler --no-doc
           bundle config set path "vendor/bundle"
 
-      # - name: Setup Code Climate
-      #   run: |
-      #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      #     chmod +x ./cc-test-reporter
-      #     ./cc-test-reporter before-build
-
       - name: Restore Gem Cache
         id: gem-cache
         uses: actions/cache@v1
@@ -56,13 +50,20 @@ jobs:
         run: |
           bundle check || bundle install --jobs 4 --retry 3
 
+      - name: Prepare Code Climate Test Reporter
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: before-build
+
       - name: Run Test Suite
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
         run: |
           bundle exec rake
 
-      # - name: Upload Coverage Report
-      #   run: |
-      #     export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
-      #     ./cc-test-reporter after-build -r ${{secrets.CC_TEST_REPORTER_ID}}
+      - name: Upload Coverage Report
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: after-build
