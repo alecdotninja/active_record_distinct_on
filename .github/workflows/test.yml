@@ -15,6 +15,8 @@ jobs:
           - '6.0'
           - '6.1'
           - '7.0'
+        exclude:
+          - { ruby: '2.6.8', rails: '7.0' }
         include:
           # TODO: Move back into matrix when support for Rails 5.2 officially ends
           - { ruby: '3.0.2', rails: '6.0' }
