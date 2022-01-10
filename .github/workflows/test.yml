@@ -14,10 +14,12 @@ jobs:
           - '5.2'
           - '6.0'
           - '6.1'
+          - '7.0'
         include:
           # TODO: Move back into matrix when support for Rails 5.2 officially ends
           - { ruby: '3.0.2', rails: '6.0' }
           - { ruby: '3.0.2', rails: '6.1' }
+          - { ruby: '3.0.2', rails: '7.0' }
 
     steps:
       - uses: actions/checkout@v2
