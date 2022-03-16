@@ -41,5 +41,11 @@ describe ActiveRecordDistinctOn::DistinctOnQueryMethods do
         )
       end
     end
+
+    context 'when in a scope' do
+      it 'gets copied from the scope' do
+        expect(dummy_model.new.toys.scope.distinct_on_values).to eq [:id]
+      end
+    end
   end
 end

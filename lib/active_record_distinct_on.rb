@@ -8,6 +8,7 @@ module ActiveRecordDistinctOn
   def self.install
     ActiveRecord::Relation.include DistinctOnQueryMethods
     ActiveRecord::Querying.delegate :distinct_on, to: :all
+    ActiveRecord::Relation::Merger::NORMAL_VALUES << :distinct_on
   end
 end
 
