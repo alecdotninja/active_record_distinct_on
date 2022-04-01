@@ -23,5 +23,30 @@ ActiveRecord::Base.connection.execute(<<-SQL)
   );
 SQL
 
+ActiveRecord::Base.connection.execute(<<-SQL)
+  CREATE TABLE dog_to_toys (
+    dog_id INTEGER,
+    toy_id INTEGER
+  );
+SQL
+
+ActiveRecord::Base.connection.execute(<<-SQL)
+  CREATE TABLE toys (
+    id INTEGER PRIMARY KEY,
+    dog_to_toy_id INTEGER,
+    name TEXT
+  );
+SQL
+
 class Dog < ActiveRecord::Base
+  has_many :dog_to_toys, class_name: 'DogToToys'
+  has_many :toys, -> { distinct_on(:id) }, through: :dog_to_toys, class_name: 'Toy'
+end
+
+class DogToToys < ActiveRecord::Base
+  belongs_to :dog
+  belongs_to :toy
+end
+
+class Toy < ActiveRecord::Base
 end

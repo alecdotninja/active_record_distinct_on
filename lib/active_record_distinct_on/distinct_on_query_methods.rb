@@ -28,13 +28,6 @@ module ActiveRecordDistinctOn
 
     def distinct_on!(*fields)
       fields.flatten!
-      fields.map! { |field|
-        if klass.attribute_alias?(field)
-          arel_table[klass.attribute_alias(field).to_sym]
-        else
-          arel_table[field]
-        end
-      }
       self.distinct_on_values += fields
       self
     end
@@ -48,7 +41,16 @@ module ActiveRecordDistinctOn
     end
 
     def build_distinct_on(arel, columns)
-      arel.distinct_on arel_columns columns unless columns.empty?
+      return if columns.empty?
+
+      arel_attributes = columns.map { |field|
+        if klass.attribute_alias?(field)
+          arel_table[klass.attribute_alias(field).to_sym]
+        else
+          arel_table[field]
+        end
+      }
+      arel.distinct_on(arel_columns arel_attributes)
     end
   end
 end
