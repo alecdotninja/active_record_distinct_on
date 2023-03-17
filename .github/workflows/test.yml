@@ -27,7 +27,7 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: 'password'
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -73,8 +73,8 @@ jobs:
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
         run: |
-          psql -c 'create database active_record_distinct_on_test;' -U postgres
-          DATABASE_URL='postgresql://localhost/active_record_distinct_on_test' bundle exec rake
+          PGPASSWORD=password psql -c 'create database active_record_distinct_on_test;' -U postgres
+          DATABASE_URL='postgresql://postgres:password@localhost/active_record_distinct_on_test' bundle exec rake
 
       - name: Upload Coverage Report
         uses: aktions/codeclimate-test-reporter@v1
