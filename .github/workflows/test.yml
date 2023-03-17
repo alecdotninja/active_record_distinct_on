@@ -73,7 +73,7 @@ jobs:
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
         run: |
-          PGPASSWORD=password psql -c 'create database active_record_distinct_on_test;' -U postgres
+          PGPASSWORD=password psql -h localhost -U postgres -c 'create database active_record_distinct_on_test;'
           DATABASE_URL='postgresql://postgres:password@localhost/active_record_distinct_on_test' bundle exec rake
 
       - name: Upload Coverage Report
