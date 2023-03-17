@@ -23,6 +23,20 @@ jobs:
           - { ruby: '3.0.2', rails: '6.1' }
           - { ruby: '3.0.2', rails: '7.0' }
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: ''
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby ${{ matrix.ruby }}
@@ -49,11 +63,18 @@ jobs:
           codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
           command: before-build
 
-      - name: Run Test Suite
+      - name: Run Test Suite (sqlite)
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
         run: |
           bundle exec rake
+
+      - name: Run Test Suite (postgres)
+        env:
+          BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
+        run: |
+          psql -c 'create database active_record_distinct_on_test;' -U postgres
+          DATABASE_URL='postgresql://localhost/active_record_distinct_on_test' bundle exec rake
 
       - name: Upload Coverage Report
         uses: aktions/codeclimate-test-reporter@v1

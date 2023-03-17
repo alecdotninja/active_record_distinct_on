@@ -32,25 +32,53 @@ module ActiveRecordDistinctOn
       self
     end
 
+    def count(column_name = nil)
+      if distinct_on_values.empty?
+        super
+      else
+        if column_name && column_name != :all
+          raise ArgumentError,
+                "Cannot use column_name to .count for scopes that already specify `distinct_on` values"
+        end
+
+        # See https://github.com/rails/rails/pull/41622#issuecomment-1303078730
+        # We need to convert SQL that looks like "SELECT DISTINCT ON ( "dogs"."id" ) COUNT(*) FROM "dogs" ..."
+        # into SQL that looks like "SELECT COUNT(DISTINCT ( "dogs"."id" )) FROM "dogs" ...".
+        scope = spawn
+        scope.distinct_on_values = FROZEN_EMPTY_ARRAY
+
+        column_names = distinct_on_arel_columns.map do |col|
+          "\"#{col.relation.name}\".\"#{col.name}\""
+        end
+
+        scope.count("distinct #{column_names.join(', ')}")
+      end
+    end
+
     private
 
     def build_arel(*)
       super.tap do |arel|
-        build_distinct_on(arel, distinct_on_values)
+        build_distinct_on(arel)
       end
     end
 
-    def build_distinct_on(arel, columns)
-      return if columns.empty?
+    def build_distinct_on(arel)
+      return if distinct_on_values.empty?
 
-      arel_attributes = columns.map { |field|
+      arel.distinct_on(distinct_on_arel_columns)
+    end
+
+    def distinct_on_arel_columns
+      arel_attributes = distinct_on_values.map { |field|
         if klass.attribute_alias?(field)
           arel_table[klass.attribute_alias(field).to_sym]
         else
           arel_table[field]
         end
       }
-      arel.distinct_on(arel_columns arel_attributes)
+
+      arel_columns arel_attributes
     end
   end
 end

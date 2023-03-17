@@ -7,13 +7,11 @@ require 'active_record_distinct_on'
 
 ActiveRecordDistinctOn.install
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
-)
+database_url = ENV.fetch('DATABASE_URL', 'sqlite3::memory:')
+ActiveRecord::Base.establish_connection(database_url)
 
 ActiveRecord::Base.connection.execute(<<-SQL)
-  CREATE TABLE dogs (
+  CREATE TABLE IF NOT EXISTS dogs (
     id INTEGER PRIMARY KEY,
     name TEXT,
     toys_count INTEGER DEFAULT 0,
@@ -24,14 +22,14 @@ ActiveRecord::Base.connection.execute(<<-SQL)
 SQL
 
 ActiveRecord::Base.connection.execute(<<-SQL)
-  CREATE TABLE dog_to_toys (
+  CREATE TABLE IF NOT EXISTS dog_to_toys (
     dog_id INTEGER,
     toy_id INTEGER
   );
 SQL
 
 ActiveRecord::Base.connection.execute(<<-SQL)
-  CREATE TABLE toys (
+  CREATE TABLE IF NOT EXISTS toys (
     id INTEGER PRIMARY KEY,
     dog_to_toy_id INTEGER,
     name TEXT
@@ -49,4 +47,13 @@ class DogToToys < ActiveRecord::Base
 end
 
 class Toy < ActiveRecord::Base
+end
+
+RSpec.configure do |config|
+  config.before(:each) do
+    conn = ActiveRecord::Base.connection
+    conn.execute "delete from dogs;"
+    conn.execute "delete from dog_to_toys;"
+    conn.execute "delete from toys;"
+  end
 end
