@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    active_record_distinct_on (1.5.0)
+    active_record_distinct_on (1.6.0)
       activerecord (>= 6.1, < 7.2)
 
 GEM
@@ -77,4 +77,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.2.31
+   2.4.5
