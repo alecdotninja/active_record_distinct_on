@@ -15,6 +15,7 @@ jobs:
           - '6.1'
           - '7.0'
           - '7.1'
+          - '7.2'
     services:
       postgres:
         image: postgres:13
