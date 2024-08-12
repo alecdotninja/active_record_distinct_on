@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['lib/**/*']
   spec.require_paths = %w{ lib }
 
-  spec.add_dependency 'activerecord', '>= 6.1', '< 7.2'
+  spec.add_dependency 'activerecord', '>= 6.1', '< 7.3'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '>= 12.3.3'
