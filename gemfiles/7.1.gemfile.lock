@@ -1,8 +1,8 @@
 PATH
   remote: ..
   specs:
-    active_record_distinct_on (1.6.0)
-      activerecord (>= 6.1, < 7.2)
+    active_record_distinct_on (1.7.0)
+      activerecord (>= 6.1)
 
 GEM
   remote: https://rubygems.org/
@@ -39,6 +39,7 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
+    mini_portile2 (2.8.8)
     minitest (5.20.0)
     mutex_m (0.1.2)
     pg (1.5.4)
@@ -66,14 +67,15 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sqlite3 (1.6.6-x86_64-linux)
+    sqlite3 (1.7.3)
+      mini_portile2 (~> 2.8.0)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   active_record_distinct_on!
@@ -85,7 +87,7 @@ DEPENDENCIES
   rake (>= 12.3.3)
   rspec
   simplecov
-  sqlite3
+  sqlite3 (~> 1.4)
 
 BUNDLED WITH
    2.4.5
