@@ -1,15 +1,5 @@
-appraise '6.1' do
-  gem 'activerecord', '~> 6.1'
-end
-
-appraise '7.0' do
-  gem 'activerecord', '~> 7.0'
-end
-
-appraise '7.1' do
-  gem 'activerecord', '~> 7.1'
-end
-
-appraise '7.2' do
-  gem 'activerecord', '~> 7.2'
+%w[6.1 7.0 7.1 7.2 8.0].each do |version|
+  appraise version do
+    gem 'activerecord', "~> #{version}"
+  end
 end
