@@ -17,7 +17,7 @@ jobs:
           - '7.2'
           - '8.0'
         exclude:
-          - ruby: '3.1'
+          - ruby: '3.1' # rails 8 requires ruby >= 3.2
             rails: '8.0'
     services:
       postgres:
