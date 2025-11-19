@@ -54,7 +54,7 @@ module ActiveRecordDistinctOn
           "\"#{col.relation.name}\".\"#{col.name}\""
         end
 
-        scope.count("distinct #{column_names.join(', ')}")
+        scope.count("distinct(#{column_names.join(', ')})")
       end
     end
 

@@ -102,18 +102,18 @@ describe ActiveRecordDistinctOn::DistinctOnQueryMethods do
         expect(Dog.joins(:toys).where(name: 'toyname').count).to eq 0
         expect(Dog.joins(:toys).where(toys: { name: 'toyname' }).count).to eq 2
         expect(Dog.joins(:toys).distinct_on(:id).count).to eq 1
-        expect(Dog.joins(:toys).distinct_on(:id).where(name: 'dogname').count).to eq 1
-        expect(Dog.joins(:toys).distinct_on(:id).where(name: 'toyname').count).to eq 0
-        expect(Dog.joins(:toys).distinct_on(:id).where(toys: { name: 'toyname' }).count).to eq 1
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(name: 'dogname').count).to eq 1
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(name: 'toyname').count).to eq 0
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(toys: { name: 'toyname' }).count).to eq 1
 
         expect(Dog.joins(:toys).size).to eq 2
         expect(Dog.joins(:toys).where(name: 'dogname').size).to eq 2
         expect(Dog.joins(:toys).where(name: 'toyname').size).to eq 0
         expect(Dog.joins(:toys).where(toys: { name: 'toyname' }).size).to eq 2
-        expect(Dog.joins(:toys).distinct_on(:id).size).to eq 1
-        expect(Dog.joins(:toys).distinct_on(:id).where(name: 'dogname').size).to eq 1
-        expect(Dog.joins(:toys).distinct_on(:id).where(name: 'toyname').size).to eq 0
-        expect(Dog.joins(:toys).distinct_on(:id).where(toys: { name: 'toyname' }).size).to eq 1
+        expect(Dog.joins(:toys).distinct_on(:id, :name).size).to eq 1
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(name: 'dogname').size).to eq 1
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(name: 'toyname').size).to eq 0
+        expect(Dog.joins(:toys).distinct_on(:id, :name).where(toys: { name: 'toyname' }).size).to eq 1
       end
     end
   end
